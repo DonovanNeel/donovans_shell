@@ -42,7 +42,7 @@ fn shell_loop(console: &dyn Console) { //TODO: Make divergent later
                 String::from("error")
             }).trim().to_string();
 
-        let args = parse(line);
+        let _args = parse(line);
 
         return;
     }
@@ -60,7 +60,7 @@ struct Args {
     count: u8,
 }
 
-fn parse(s: String) -> Args {
+fn parse(_s: String) -> Args {
 
 
     todo!();
