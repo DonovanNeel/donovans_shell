@@ -1,10 +1,11 @@
 use std;
-trait Console {
+pub trait Console {
     fn print(&self, s: &str);
     fn println(&self, s: &str);
     fn readline(&self) -> Result<String, std::io::Error>;
+    fn panic(&self);
 }
-struct HostConsole;
+pub struct HostConsole;
 impl Console for HostConsole {
     fn print(&self, s: &str) {
         print!("{}", s);
@@ -17,7 +18,38 @@ impl Console for HostConsole {
         let result = std::io::stdin().read_line(&mut line);
         result.map(|_| line)
     }
+    fn panic(&self) {
+        panic!("Panicked!");
+    }
 }
-pub fn run_shell() {
+// Entry point for the kernel in the future
+pub fn run_shell(console: &dyn Console) {
+    //init();
 
+    shell_loop(console);
+}
+
+
+fn shell_loop(console: &dyn Console) -> ! {
+    loop {
+        console.print("> ");
+
+        let line = console.readline()
+            .unwrap_or_else(|_err| {
+                // Handle this error later
+                console.panic();
+                String::from("error")
+            }).trim().to_string();
+
+        let args = parse(line);
+
+    }
+}
+
+fn parse(s: String) {
+    todo!();
+}
+
+fn init() {
+    todo!()
 }

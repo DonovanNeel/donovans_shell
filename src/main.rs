@@ -1,5 +1,6 @@
 mod shell_application;
 
 fn main() {
-    shell_application::run_shell();
+    let console = shell_application::HostConsole;
+    shell_application::run_shell(&console);
 }
