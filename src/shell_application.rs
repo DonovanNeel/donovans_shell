@@ -1,4 +1,5 @@
 use std;
+use clap::Parser;
 pub trait Console {
     fn print(&self, s: &str);
     fn println(&self, s: &str);
@@ -30,7 +31,7 @@ pub fn run_shell(console: &dyn Console) {
 }
 
 
-fn shell_loop(console: &dyn Console) -> ! {
+fn shell_loop(console: &dyn Console) { //TODO: Make divergent later
     loop {
         console.print("> ");
 
@@ -43,10 +44,25 @@ fn shell_loop(console: &dyn Console) -> ! {
 
         let args = parse(line);
 
+        return;
     }
 }
 
-fn parse(s: String) {
+#[derive(Parser, Debug)]
+#[command(version, about, long_about = None)]
+struct Args {
+    /// Name of the person to greet
+    #[arg(short, long)]
+    name: String,
+
+    /// Number of times to greet
+    #[arg(short, long, default_value_t = 1)]
+    count: u8,
+}
+
+fn parse(s: String) -> Args {
+
+
     todo!();
 }
 
